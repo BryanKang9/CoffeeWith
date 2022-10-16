@@ -38,13 +38,31 @@ public class ComTourDao implements ComTourDaoInter{
     }
 
     @Override
-    public void updateComTour(ComTourDto dto) {
-
+    public ComTourDto getData(int num) {
+        return session.selectOne(ns+"selectByNum",num);
     }
 
     @Override
-    public void deleteComTour(int num) {
+    public void updatecrw(Map<String,Integer> map) {
+        session.update(ns+"updatecrw",map);
+    }
 
+    @Override
+    public int getCrwCount(Map<String, Integer> map) {
+        return session.selectOne(ns+"getCrwCount",map);
+    }
+
+    @Override
+    public void updateComTour(ComTourDto dto)
+    {
+        session.update(ns+"updateList",dto);
+    }
+
+    @Override
+    public void deleteComTour(int num)
+    {
+
+        session.delete(ns+"deleteList",num);
     }
 
     @Override

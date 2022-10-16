@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.data.dao.ComTourAnsDao">
+    <!--게시글 입력-->
+    <insert id="insertAns" parameterType="ctadto">
+        INSERT INTO tr_cmt values (null,#{ur_id},#{tr_id},#{tm_txt},now(),now(),#{rg},#{rs},#{rl})
+    </insert>
+
+    <!--등록글에 대한 정보 리턴 영역-->
+    <select id="selectAllAnsData" parameterType="int" resultType="ctadto">
+       SELECT * FROM tr_cmt INNER JOIN ur ON tr_cmt.ur_id=ur.ur_id where tr_id=#{tr_id} order by tm_id desc
+    </select>
+
+    <!--rg을 위한 Max값 구하기-->
+    <select id="getMaxNum" resultType="int">
+        select ifnull(max(tm_id),0) from tr_cmt
+    </select>
+    <!--Update restep-->
+    <update id="updateRestep" parameterType="Map">
+        update tr_cmt set rs=rs+1 where rg=#{rg} and rs>#{rs}
+    </update>
+    <delete id="deleteAns" parameterType="int">
+        delete from tr_cmt where tm_id=#{num}
+    </delete>
+</mapper>

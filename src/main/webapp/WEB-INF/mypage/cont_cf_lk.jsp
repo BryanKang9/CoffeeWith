@@ -12,31 +12,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Coffeewith</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
     <style>
-        /*  .bk_container div, .bk_container img {
-              border: 1px solid gray;
-          }*/
 
         .bk_container {
             display: grid;
             padding: 40px 20px 20px;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 280px 280px 280px 280px 280px;
+            grid-template-rows: 280px 280px 280px 280px;
             gap: 20px 0px;
             justify-items: center;
-            min-height: 1600px;
+            min-height: 1300px;
         }
 
         div.bk-card {
             width: 270px;
             height: 270px;
             overflow: hidden;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        }
+
+        div.bk-txt-area {
+            margin-left: 20px;
         }
 
         div.bk-txt-area:hover {
@@ -78,6 +74,15 @@
         .pagination {
             justify-content: center;
         }
+
+        .page-link {
+            color: #664400;
+        }
+
+        .page-item.active .page-link {
+            background-color: #664400;
+            border-color: #664400;
+        }
     </style>
 </head>
 <body>
@@ -86,7 +91,7 @@
 <div class="bk_container">
     <c:if test="${totalCount==0}">
         <div>
-            <h4>등록된 글이 없습니다</h4>
+            <h4>등록된 북마크가 없습니다</h4>
         </div>
     </c:if>
     <c:if test="${totalCount>0}">
@@ -150,11 +155,12 @@
             dataType: "text",
             data: {"ur_id": ur_id, "cf_id": cf_id},
             success: function (res) {
-                // alert("yes");
+                alert("북마크에서 정상 제외되었습니다.")
                 location.reload();
             }//suc
         })//ajax
     })//$(".un-bk")
+
 </script>
 </body>
 </html>

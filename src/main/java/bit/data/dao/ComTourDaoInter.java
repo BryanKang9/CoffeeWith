@@ -13,4 +13,7 @@ public interface ComTourDaoInter {
     public int getTotalCount(Map<String, String> map);
     public List<ComTourDto> getPagingList(Map<String,Object> map);
     public ComTourDto getUserData(int num);
+    public ComTourDto getData(int num);
+    public void updatecrw(Map<String,Integer> map);
+    public int getCrwCount(Map<String, Integer> map);
 }

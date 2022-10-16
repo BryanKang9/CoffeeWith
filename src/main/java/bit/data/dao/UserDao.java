@@ -14,24 +14,6 @@ public class UserDao implements UserDaoInter {
     SqlSession session;
     String ns = "bit.data.dao.UserDao.";
 
-    @Override  // UserDaoInter에 해당 method 추가함
-    public int getTotalCount() {
-        // TODO Auto-generated method stub
-        return session.selectOne(ns+"getTotalCount");
-    }
-
-    @Override
-    public List<UserDto> getAllUser() {
-        // TODO Auto-generated method stub
-        return session.selectList(ns+"getAllUsers"); // select List : 모든
-    }
-
-    @Override
-    public void insertUsers(UserDto dto) {
-        // TODO Auto-generated method stub
-        session.insert(ns+"insertUser",dto);
-    }
-
     @Override
     public int selectSearchId(String email_id) {
 //        System.out.println("Dao_email: " + email_id);
@@ -70,7 +52,42 @@ public class UserDao implements UserDaoInter {
     }
 
     @Override
+    public String selectUserPass(int ur_id) {
+        return session.selectOne(ns + "selectUserPass", ur_id);
+    }
+
+    @Override
+    public void updateUserPass(Map map) {
+        session.update(ns + "updateUserPass", map);
+    }
+
+    @Override
+    public void updateUserData(UserDto dto) {
+        session.update(ns + "updateUserData", dto);
+    }
+
+    @Override
+    public UserDto selectEmailId(String id) {
+        return session.selectOne(ns + "selectEmailId", id);
+    }
+
+    @Override
     public int getIdPassCheck(Map<String, String> map) {
-        return session.selectOne(ns+"loginIdPassCheck", map);
+        return session.selectOne(ns + "loginIdPassCheck", map);
+    }
+    // 네이버 간편 로그인을 위한 중복 아이디 체크
+    @Override
+    public String getUserEmailByName(String ur_nm) {
+        return session.selectOne(ns+"getUserEmailByName", ur_nm);
+    }
+
+    @Override
+    public String getUserPwByEmail(String email_id) {
+        return session.selectOne(ns+"getUserPwByEmail", email_id);
+    }
+    // 네이버 아이디
+    @Override
+    public UserDto selectDataByNaver(String naver_id) {
+        return session.selectOne(ns+"selectDataByNaver", naver_id);
     }
 }

@@ -1,6 +1,7 @@
 package bit.data.dao;
 
 import bit.data.dto.ComFeedDto;
+import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,13 +26,23 @@ public class ComFeedDao implements ComFeedDaoInter{
     }
 
     @Override
-    public ComFeedDto selectFeed(int num) {
-        return session.selectOne(ns+"selectFeed",num);
+    public ComFeedDto selectFeed(int fd_id) {
+        return session.selectOne(ns+"selectFeed",fd_id);
     }
 
     @Override
     public List<ComFeedDto> searchFeedByTag(Map<String, String> map) {
         return session.selectList(ns+"searchFeedByTag", map);
+    }
+
+    @Override
+    public List<ComFeedDto> searchFeedByCtg(Map<String, String> map) {
+        return session.selectList(ns+"searchFeedByCtg", map);
+    }
+
+    @Override
+    public List<ComFeedDto> searchBestFeed() {
+        return session.selectList(ns+"searchBestFeed");
     }
 
     @Override
@@ -45,13 +56,52 @@ public class ComFeedDao implements ComFeedDaoInter{
     }
 
     @Override
-    public void deleteFeed(int num) {
-        session.delete(ns+"deleteFeed",num);
+    public void deleteFeed(int fd_id) {
+        session.delete(ns+"deleteFeed",fd_id);
     }
 
     @Override
-    public void updateLikes(int num) {
-        session.update(ns+"updateLikes",num);
+    public void updateLikes(int fd_id) {
+        session.update(ns+"updateLikes",fd_id);
     }
 
+    @Override
+    public void insertPhoto(ComFeedDto dto) {
+        session.insert(ns+"insertPhoto",dto);
+    }
+
+    @Override
+    public List<String> selectPhoto(int fd_id) {
+        return session.selectList(ns+"selectPhoto",fd_id);
+    }
+
+    @Override
+    public void insertFeedLikes(Map<String, Integer> map) {
+        session.insert(ns+"insertFeedLikes", map);
+    }
+
+    @Override
+    public void deleteFeedLikes(Map<String, Integer> map) {
+        session.delete(ns+"deleteFeedLikes", map);
+    }
+
+    @Override
+    public int selectTotalFeedLikes(int fd_id) {
+        return session.selectOne(ns+"selectTotalFeedLikes",fd_id);
+    }
+
+    @Override
+    public int selectFeedLikesByUrid(Map<String, Integer> map) {
+        return session.selectOne(ns+"selectFeedLikesByUrid", map);
+    }
+
+    @Override
+    public void updateFeedLikes(int fd_id) {
+        session.update(ns+"updateFeedLikes",fd_id);
+    }
+
+    @Override
+    public int selectCafeByCfnm(Map<String, String> map) {
+        return session.selectOne(ns+"selectCafeByCfnm",map);
+    }
 }

@@ -28,8 +28,8 @@ public class ComFeedService implements ComFeedServiceInter{
     }
 
     @Override
-    public ComFeedDto selectFeed(int num) {
-        return daoInter.selectFeed(num);
+    public ComFeedDto selectFeed(int fd_id) {
+        return daoInter.selectFeed(fd_id);
     }
 
     @Override
@@ -38,6 +38,18 @@ public class ComFeedService implements ComFeedServiceInter{
         map.put("searchcolumn",searchColumn);
         map.put("searchword",searchWord);
         return daoInter.searchFeedByTag(map);
+    }
+
+    @Override
+    public List<ComFeedDto> searchFeedByCtg(String cg_nm) {
+        Map<String, String> map=new HashMap<>();
+        map.put("cg_nm",cg_nm);
+        return daoInter.searchFeedByCtg(map);
+    }
+
+    @Override
+    public List<ComFeedDto> searchBestFeed() {
+        return daoInter.searchBestFeed();
     }
 
     @Override
@@ -51,12 +63,63 @@ public class ComFeedService implements ComFeedServiceInter{
     }
 
     @Override
-    public void deleteFeed(int num) {
-        daoInter.deleteFeed(num);
+    public void deleteFeed(int fd_id) {
+        daoInter.deleteFeed(fd_id);
     }
 
     @Override
-    public void updateLikes(int num) {
-        daoInter.updateLikes(num);
+    public void updateLikes(int fd_id) {
+        daoInter.updateLikes(fd_id);
     }
+
+    @Override
+    public void insertPhoto(ComFeedDto dto) {
+        daoInter.insertPhoto(dto);
+    }
+
+    @Override
+    public List<String> selectPhoto(int fd_id) {
+        return daoInter.selectPhoto(fd_id);
+    }
+
+    @Override
+    public void insertFeedLikes(int lg_id, int fd_id) {
+        Map<String,Integer> map=new HashMap<>();
+        map.put("lg_id", lg_id);
+        map.put("fd_id",fd_id);
+        daoInter.insertFeedLikes(map);
+    }
+
+    @Override
+    public void deleteFeedLikes(int lg_id, int fd_id) {
+        Map<String,Integer> map=new HashMap<>();
+        map.put("lg_id", lg_id);
+        map.put("fd_id",fd_id);
+        daoInter.deleteFeedLikes(map);
+    }
+
+    @Override
+    public int selectTotalFeedLikes(int fd_id) {
+        return daoInter.selectTotalFeedLikes(fd_id);
+    }
+
+    public int selectFeedLikesByUrid(int lg_id, int fd_id){
+        Map<String,Integer> map=new HashMap<>();
+        map.put("lg_id",lg_id);
+        map.put("fd_id",fd_id);
+        return daoInter.selectFeedLikesByUrid(map);
+    }
+
+    @Override
+    public void updateFeedLikes(int fd_id) {
+        daoInter.updateFeedLikes(fd_id);
+    }
+
+    @Override
+    public int selectCafeByCfnm(String cf_nm) {
+        Map<String,String> map=new HashMap<>();
+        map.put("cf_nm",cf_nm);
+        return daoInter.selectCafeByCfnm(map);
+    }
+
 }

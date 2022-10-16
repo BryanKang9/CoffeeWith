@@ -13,16 +13,19 @@
           rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <title>CoffeeWith</title>
+    <title>Coffee With</title>
 
     <style type="text/css">
-        * {
-            font-family: 'Jua';
+        @font-face {
+            font-family: 'GangwonEdu_OTFBoldA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
 
-        body {
-            font-family: 'Jua';
-            font-size: 20px;
+        body * {
+            font-family: 'GangwonEdu_OTFBoldA';
+            color: #664400;
         }
 
         .main_layout1 {
@@ -39,9 +42,15 @@
         }
 
         #header {
-            height: 90px;
+            height: 120px;
             text-align: center;
+            z-index: 101;
+            box-shadow: 0 8px 8px rgb(0 0 0 / 5%);
         }
+        #main{
+            height: 680px;
+        }
+
     </style>
 </head>
 <body>
@@ -49,7 +58,6 @@
     <div class="main" id="header">
         <tiles:insertAttribute name="header"/>
     </div>
-    <hr>
     <div class="main" id="main">
         <tiles:insertAttribute name="main"/>
     </div>

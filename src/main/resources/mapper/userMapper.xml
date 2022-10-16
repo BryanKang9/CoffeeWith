@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bit.data.dao.UserDao">
+
+    <!-- 로그인 이메일 아이디 / jy -->
+    <select id="selectEmailId" parameterType="String" resultType="userDto">
+        SELECT * FROM ur
+        WHERE email_id = #{email_id};
+    </select>
+
     <select id="selectSearchId" parameterType="String" resultType="int">
         SELECT count(*)
         FROM ur
@@ -12,15 +19,24 @@
         FROM ur
         WHERE ur_nk = #{userNick}
     </select>
+    <select id="selectUserPass" parameterType="int" resultType="String">
+        SELECT ur.ur_pw
+        FROM ur
+        WHERE ur_id = #{ur_id};
+    </select>
     <insert id="insertUser" parameterType="UserDto">
         INSERT INTO ur (ur_id, ur_nk, ur_nm, ur_pw, ur_txt, ur_img, email_id, naver_id, kakao_id, google_id, loc_si,
                         loc_gu, status, report, ur_phnum)
-        VALUES (null, #{ur_nk}, #{ur_nm}, #{ur_pw}, null, null, #{email_id}, null,
-                null, null, #{loc_si}, #{loc_gu}, '정상', 0, #{ur_phnum})
+        VALUES (null, #{ur_nk}, #{ur_nm}, #{ur_pw}, null, #{ur_img}, #{email_id}, #{naver_id},#{kakao_id},
+                null, #{loc_si}, #{loc_gu}, '정상', 0, #{ur_phnum})
     </insert>
 
+    <select id="getUserIdSearch" parameterType="String" resultType="int">
+        select count(*) from ur where email_id=#{email_id}
+    </select>
+
     <select id="loginIdPassCheck" parameterType="Map" resultType="int">
-        select count(*) from user where email_id=#{email_id} and ur_pw=#{ur_pw}
+        select count(*) from ur where email_id=#{email_id} and ur_pw=#{ur_pw}
     </select>
     <!--시/도명 추출 명령문-->
     <select id="selectSubstrSi" resultType="String">
@@ -35,6 +51,30 @@
         WHERE ur_id = #{ur_id};
     </select>
 
+    <select id="selectDataByEmailId" parameterType="int" resultType="UserDto">
+        SELECT *
+        FROM ur
+        WHERE email_id = #{email_id};
+    </select>
+
+    <select id="getUserEmailByName" parameterType="String" resultType="String">
+        SELECT email_id
+        FROM ur
+        WHERE ur_nm = #{ur_nm};
+    </select>
+
+    <select id="getUserPwByEmail" parameterType="String" resultType="String">
+        SELECT ur_pw
+        FROM ur
+        WHERE email_id = #{email_id};
+    </select>
+
+    <select id="selectDataByNaver" parameterType="string" resultType="UserDto">
+        SELECT *
+        FROM ur
+        WHERE naver_id = #{naver_id};
+    </select>
+
     <select id="selectSubstrGu" parameterType="String" resultType="String">
         SELECT substring_index(substring_index(loc_addr, ' ', '2'), ' ', -1)
                    AS loc_gu
@@ -44,4 +84,18 @@
         GROUP BY loc_gu;
     </select>
 
+    <update id="updateUserData" parameterType="UserDto">
+        UPDATE ur
+        SET ur_nk  = #{ur_nk},
+            loc_si = #{loc_si},
+            loc_gu = #{loc_gu},
+            ur_img = #{ur_img}
+        WHERE ur_id = #{ur_id};
+    </update>
+
+    <update id="updateUserPass" parameterType="Map">
+        UPDATE ur
+        SET ur_pw = #{new_pass}
+        WHERE ur_id = #{login_id};
+    </update>
 </mapper>
